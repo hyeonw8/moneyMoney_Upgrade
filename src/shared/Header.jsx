@@ -1,6 +1,23 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const HeaderDiv = styled.div`
+const Header = () => {
+  return (
+    <StHeaderDiv>
+      <StHeaderTitle>✐ keep a record of household expenses </StHeaderTitle>
+      <StBtnBox>
+        <StLogin> <Link to='../components/Auth/SignUpForm.jsx'>Login</Link></StLogin>
+        <StSignUpReact>
+          <Link to='../components/Auth/SignUpForm.jsx'>SignUp</Link>
+        </StSignUpReact>
+      </StBtnBox>
+    </StHeaderDiv>
+  );
+};
+
+export default Header;
+
+const StHeaderDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -12,24 +29,30 @@ const HeaderDiv = styled.div`
   max-width: 1200px;
   min-width: 780px;
 `;
-const HeaderTitle = styled.h2`
+const StHeaderTitle = styled.h2`
   font-size: 20px;
   font-weight: bold;
   padding: 20px;
 `;
-const HeaderP = styled.p`
-  font-size: 15px;
-  font-weight: bold;
-  padding: 20px;
+
+const StBtnBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+`
+const StLogin = styled.button`
+  border-radius: 20px;
+  width: 100px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
 `;
-
-const Header = () => {
-  return (
-    <HeaderDiv>
-      <HeaderTitle>✐ keep a record of household expenses </HeaderTitle>
-      <HeaderP>React</HeaderP>
-    </HeaderDiv>
-  );
-};
-
-export default Header;
+const StSignUpReact = styled.button`
+  border-radius: 20px;
+  width: 100px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+`
