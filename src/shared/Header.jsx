@@ -6,9 +6,9 @@ const Header = () => {
     <StHeaderDiv>
       <StHeaderTitle>✐ keep a record of household expenses </StHeaderTitle>
       <StBtnBox>
-        <StLogin> <Link to='../components/Auth/SignUpForm.jsx'>Login</Link></StLogin>
+        <StLogin> <Link to='/auth/login'>Login</Link></StLogin>
         <StSignUpReact>
-          <Link to='../components/Auth/SignUpForm.jsx'>SignUp</Link>
+          <Link to='/auth/signup'>SignUp</Link>
         </StSignUpReact>
       </StBtnBox>
     </StHeaderDiv>
