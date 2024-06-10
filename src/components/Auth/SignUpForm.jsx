@@ -87,6 +87,7 @@ const StButton = styled.button`
   width: 410px;
   height: 50px;
   border-radius: 10px;
+  cursor: pointer;
   background-color: ${(props) => (props.$text === 'signup' ? 'black' : 'gray')};
   border: none;
   color: white;
