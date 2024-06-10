@@ -1,13 +1,13 @@
-import './App.css';
-import Router from './shared/Router';
+import { RouterProvider } from 'react-router-dom';
 import Globalstyle from './shared/Globalstyle';
+import Router from './router/Router';
 
 function App() {
 
   return (
     <>
       <Globalstyle />
-      <Router />
+      <RouterProvider router={Router} />
     </>
   );
 }
