@@ -53,7 +53,7 @@ const StLogin = styled.button`
   height: 40px;
   background-color: black;
   color: white;
-  font-size: 18px;
+  font-size: 15px;
   border: none;
 `;
 const StSignUp = styled.button`
@@ -62,6 +62,6 @@ const StSignUp = styled.button`
   height: 40px;
   background-color: black;
   color: white;
-  font-size: 18px;
+  font-size: 15px;
   border: none;
 `
