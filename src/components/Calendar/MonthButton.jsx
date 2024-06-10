@@ -10,9 +10,9 @@ const StButton = styled.button`
   font-size: 20px;
   border-radius: 20px;
   border: none !important;
-  background-color: ${(props) => (props.$active ? 'lightblue' : '#e2e2e2;')};
+  background-color: ${(props) => (props.$active ? 'lightblue' : '#e2e2e2')};
   &:hover {
-    background-color: darkgray;
+    background-color: lightblue;
   }
   font-family: 'Pretendard', sans-serif;
   font-weight: 900;
