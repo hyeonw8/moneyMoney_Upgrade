@@ -13,6 +13,16 @@ const Globalstyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     background-color: #a6c6cefb;
+    min-height: 100vh;
+    max-width: 1200px;
+    min-width: 780px;
+    height: 100vh;
+    width: 100vw;
+    margin: 0 auto;
+  }
+
+  a {
+    cursor: pointer;
   }
 `
 
