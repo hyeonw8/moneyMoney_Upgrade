@@ -23,8 +23,9 @@ const Globalstyle = createGlobalStyle`
 
   a {
     cursor: pointer;
+    text-decoration: none;
+    color: black;
   }
 `
-
 
 export default Globalstyle
