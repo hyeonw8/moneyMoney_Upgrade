@@ -1,35 +1,78 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { logout } from '../redux/slices/authSlice';
+import { login, logout, setUserData } from '../redux/slices/authSlice';
+import { useEffect } from 'react';
+import api from '../api/authAPI';
+import { toast } from 'react-toastify';
 
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const userData = useSelector((state) => state.auth.userData);
   //console.log(isAuthenticated)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-const handleLogout = () => {
-  localStorage.removeItem('accessToken');
-  dispatch(logout());
-  console.log(isAuthenticated)
-};
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem('accessToken');
+    toast.success('로그아웃되었습니다!');
+    //console.log(isAuthenticated)
+    navigate('/login');
+  };
+
+  useEffect(() => {
+    const checkIsAuthenticated = async () => {
+      if (accessToken) {
+        try {
+          const response = await api.get("/user", {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+          const data = response.data;
+          if (data.success) {
+            dispatch(setUserData({ userId: data.id, nickname: data.nickname, avatar: data.avatar }))
+            dispatch(login(accessToken));
+          } else {
+            dispatch(logout());
+            localStorage.removeItem('accessToken');
+            navigate("/login");
+          }
+        } catch (error) {
+          toast.error("토큰 확인 오류:", error.message);
+          dispatch(logout());
+          localStorage.removeItem('accessToken');
+          navigate('/login');
+        }
+      }
+    };
+
+    checkIsAuthenticated();
+    //console.log(isAuthenticated);
+  }, []);
+
+
 
 return (
   <StHeaderDiv>
-    <StHeaderTitle>
-      <Link to='/'>✐ keep a record of household expenses</Link>
-    </StHeaderTitle>
+    <Link to='/'>
+      <StHeaderTitle>✐ keep a record of household expenses</StHeaderTitle>
+    </Link>
     <StBtnBox>
-      {isAuthenticated ? (
-        <StLogin onClick={handleLogout} $text='로그아웃'>로그아웃</StLogin>
+      {userData && isAuthenticated ? (
+        <> 
+          <Link to='/mypage'>
+            <StImg src={userData.avatar} alt="MyPage" />
+          </Link>
+          <StUserName>안녕하세요, {userData.nickname}님</StUserName>
+          <StLogin onClick={handleLogout} $text='로그아웃'>로그아웃</StLogin>
+        </>
       ) : (
         <>
-          <StLogin $text='로그인'>
-            <Link to='/auth/login'>로그인</Link>
-          </StLogin>
-          <StSignUp>
-            <Link to='/auth/signup'>회원가입</Link>
-          </StSignUp>
+          <Link to='/login'><StLogin $text='로그인'>로그인</StLogin></Link>         
+          <Link to='/signup'><StSignUp>회원가입</StSignUp></Link>         
         </>
       )}
     </StBtnBox>
@@ -56,9 +99,6 @@ const StHeaderTitle = styled.h2`
   font-weight: bold;
   padding: 20px;
   cursor: pointer;
-  a {
-    color: black;
-  }
 `;
 
 const StBtnBox = styled.div`
@@ -77,7 +117,7 @@ const StLogin = styled.button`
   color: white;
   font-size: 15px;
   border: none;
-  
+  cursor: pointer;
 `;
 const StSignUp = styled.button`
   border-radius: 20px;
@@ -87,4 +127,18 @@ const StSignUp = styled.button`
   color: white;
   font-size: 15px;
   border: none;
+  cursor: pointer;
 `
+export const StImg = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`;
+
+const StUserName = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+`;
