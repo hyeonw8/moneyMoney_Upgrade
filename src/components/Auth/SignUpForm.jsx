@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import api from '../../api/authAPI';
+//import api from '../../api/authAPI';
+import { registerAPI } from '../../api/auth';
+import { toast } from 'react-toastify';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -12,31 +14,31 @@ const SignUpForm = () => {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    
-    try {
-      const response = await api.post('/register',
-        {
-          id,
-          password,
-          nickname,
-        }
-      );
-      const data = response.data;
-     
-      if(data.success) {
-        alert('회원가입이 완료되었습니다. 환영합니다!');
-        navigate('/');
-      } else {
-        alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
-      }
-    } catch(error) {
-      console.error("Signup error:", error);
-      alert('회원가입에 오류가 발생했습니다. 다시 시도해 주세요');
-      // 토스트나 스윗으로 바꿔보기
-    }
 
+    if(id.length < 4 || id.length > 10) {
+      toast.warn('아이디는 4글자에서 10글자 이내로만 가능합니다!');
+    }
+    if(password.length < 4 || password.length > 15) {
+      toast.warn('패스워드는 4글자에서 15글자 이내로만 가능합니다!');
+    }
+    if(nickname.length < 4 || nickname.length > 10) {
+      toast.warn('닉네임은 1글자에서 10글자 이내로만 가능합니다!');
+    }
     
-  }
+    const response = await registerAPI({
+      id, 
+      password,
+      nickname,
+    })
+    const data = response.data;
+    if(data.success) {
+      toast.success('회원가입이 완료되었습니다. 환영합니다!');
+      navigate('/login');
+    } else {
+      toast.error('회원가입에 실패했습니다. 다시 시도해 주세요.');
+    }
+  } 
+
 
   return (
     <>
@@ -134,6 +136,7 @@ const StTitle = styled.p`
 // const StLabel = styled.label`
 //   font-size: 18px;
 // `;
+
 const StInput = styled.input`
   width: 400px;
   height: 40px;
