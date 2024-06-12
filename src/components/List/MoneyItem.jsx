@@ -32,7 +32,7 @@ const StDescription = styled.h4`
 `
 
 const MoneyItem = ({ data }) => {
-  const { id, date, category, cost, description } = data;
+  const { id, date, category, cost, description, createdBy} = data;
   const navigate = useNavigate();
 
   return (
@@ -44,7 +44,8 @@ const MoneyItem = ({ data }) => {
       <StText>
         <p>{date}</p>
         <h4>{category}</h4>
-        <StDescription>{description}</StDescription>
+        <StDescription>{description} (by {createdBy})</StDescription>
+        
       </StText>
       <div>
         <StCost>{cost.toLocaleString('ko-KR')}원</StCost>
