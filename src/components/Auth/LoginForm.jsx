@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import api from '../../api/authAPI';
-import { login } from '../../redux/slices/authSlice';
+import { login, setUserData } from '../../redux/slices/authSlice';
+import { loginAPI } from '../../api/auth';
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  //const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   //console.log(isAuthenticated)
+  //const userData = useSelector((state) => state.auth.userData);
   const dispatch = useDispatch();
 
   const [ id, setId ] = useState('');
@@ -17,28 +19,29 @@ const LoginForm = () => {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await api.post('/login',
-        {
-          id,
-          password,
-        }
-      );
-      const data = response.data;
-      console.log(data);
-      if(data.success) {
-        alert('로그인 되었습니다!');
-        localStorage.setItem('accessToken', data.accessToken);
-        dispatch(login());
+    if(id.length < 4 || id.length > 10) {
+      toast.warn('아이디는 4글자에서 10글자 이내입니다!');
+    }
+    if(password.length < 4 || password.length > 15) {
+      toast.warn('패스워드는 4글자에서 15글자 이내입니다!');
+    }
 
-        navigate('/');
-      } else {
-        alert('로그인에 실패했습니다. 다시 시도해 주세요.');
-      }
-    } catch(error) {
-      console.error("Signup error:", error);
-      alert('로그인에 오류가 발생했습니다. 다시 시도해 주세요');
-      // 토스트나 스윗으로 바꿔보기
+    const response = await loginAPI({
+        id,
+        password,
+    })
+    const data = response.data;
+    //console.log(data);
+    if(data.success) {
+      //alert('로그인되었습니다!');
+      toast.success('로그인되었습니다');
+      localStorage.setItem('accessToken', data.accessToken);
+      dispatch(login(data.accessToken));
+      dispatch(setUserData(data));
+      navigate('/');
+    } else {
+      toast.error('로그인에 실패했습니다. 다시 시도해 주세요.');
+      //alert('로그인에 실패했습니다. 다시 시도해 주세요.');
     }
   };
   
