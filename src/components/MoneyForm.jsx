@@ -1,57 +1,27 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addItemAPI } from '../api/dataAPI';
+import { toast } from 'react-toastify';
 import uuid4 from 'uuid4';
-import { useDispatch } from 'react-redux';
-import { addData } from '../redux/slices/datasSlice';
-
-const StForm = styled.form`
-  height: 70px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  column-gap: 20px;
-  background-color: #fff;
-  border-radius: 20px;
-  padding: 10px;
-  margin: 10px 15px 30px 15px;
-`;
-
-const StFormBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 5px;
-`;
-
-const StFormLabel = styled.label`
-  font-weight: 600;
-`;
-
-const StFormButton = styled.button`
-  width: 80px;
-  height: 40px;
-  background-color: black;
-  color: white;
-  font-size: 17px;
-  border-radius: 20px;
-  font-weight: 500;
-`;
-
-const StFormInput = styled.input`
-  border: 1px solid gray;
-  border-radius: 10px;
-  text-align: center;
-  height: 25px;
-  width: 150px;
-`;
 
 const MoneyForm = () => {
-  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  const userData = useSelector((state)=> state.auth.userData);
 
   const [date, setDate] = useState('');
   const [category, setCategory] = useState('');
   const [cost, setCost] = useState('');
   const [description, setDescription] = useState('');
+
+  const mutation = useMutation({
+    mutationFn: addItemAPI,
+    onSuccess: () => {
+      toast.success('지출내역이 저장되었습니다.')
+      queryClient.invalidateQueries(['expenses']);
+    }
+  });
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -61,19 +31,21 @@ const MoneyForm = () => {
     }
 
     const nextData = {
-      id: uuid4(),
+      month : Number(date.slice(5,7)),
       date,
       category,
       cost: Number(cost),
       description,
+      createdBy: userData.userId,
+      userId: uuid4(),
     };
 
-    dispatch(addData(nextData));
+    // dispatch(addData(nextData));
+    mutation.mutate(nextData);
     setDate('');
     setCategory('');
     setCost('');
     setDescription('');
-
   };
 
   return (
@@ -131,3 +103,43 @@ const MoneyForm = () => {
 };
 
 export default MoneyForm;
+const StForm = styled.form`
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px 15px 30px 15px;
+`;
+
+const StFormBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+`;
+
+const StFormLabel = styled.label`
+  font-weight: 600;
+`;
+
+const StFormButton = styled.button`
+  width: 80px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  font-size: 17px;
+  border-radius: 20px;
+  font-weight: 500;
+`;
+
+const StFormInput = styled.input`
+  border: 1px solid gray;
+  border-radius: 10px;
+  text-align: center;
+  height: 25px;
+  width: 150px;
+`;
