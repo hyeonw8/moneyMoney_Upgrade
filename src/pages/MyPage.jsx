@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProfileAPI } from '../api/auth';
+import { updateProfileAPI } from '../api/authAPI';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { logout, setUserData } from '../redux/slices/authSlice';
