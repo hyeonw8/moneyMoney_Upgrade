@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from '../shared/Header';
 import { Outlet, useNavigate  } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getUserInfoAPI } from '../api/auth';
-import { setUserData } from '../redux/slices/authSlice';
+import { getUserInfoAPI } from '../api/authAPI';
 import { toast } from 'react-toastify';
+import { logout, setUserData } from '../redux/slices/authSlice';
 
 const Layout = () => {
   const userData = useSelector((state) => state.auth.userData);
@@ -19,23 +19,30 @@ const Layout = () => {
         const response = await getUserInfoAPI();
         const data = response.data;
 
-        dispatch(setUserData({ userId: data.id, nickname: data.nickname, avatar: data.avatar }))
-        console.log('현재 로그인된 유저가 있나요?', data);
-        console.log(userData);
-
-    
+        if (data.success) {
+          dispatch(setUserData({ userId: data.id, nickname: data.nickname, avatar: data.avatar }));
+        } else {
+          dispatch(logout());
+          localStorage.removeItem('accessToken');
+          navigate('/login');
+        }
+  
       } catch (error) {
         console.error('유저 정보 가져오기 오류:', error);
-        toast.error(error?.response?.data?.message);
-        dispatch(setUserData(null));
-       //navigate('/login');
+        if (error.response && error.response.status === 401) {
+          toast.error('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+        } else {
+          toast.error('유저 정보 가져오기 오류');
+        }
+        dispatch(logout());
         localStorage.removeItem('accessToken');
         navigate('/login');
       }
     };
 
     fetchUserInfo();
-  }, []);
+  }, [dispatch]);
+
 
   return (
     <>
