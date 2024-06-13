@@ -7,54 +7,13 @@ import SignUpForm from '../components/Auth/SignUpForm';
 import MyPage from '../pages/MyPage';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-//import Auth from '../pages/Auth';
 
-// const Router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <Layout />,
-//     children: [
-//       {
-//         path: '',
-//         element: <Home />,
-//       },
-//       {
-//         path: 'auth',
-//         element: <Auth />,
-//         children: [
-//           {
-//             path: 'login',
-//             element: <LoginForm />
-//           },
-//           {
-//             path: 'signup',
-//             element: <SignUpForm />
-//           }
-//         ]
-//       },
-//       {
-//         path: '/detail/:id',
-//         element: <Detail />
-//       },
-//       {
-//         path: 'mypage',
-//         element: <PrivateRoute />,
-//         children: [
-//           {
-//             path: '',
-//             element: <MyPage />,
-//           },
-//         ],
-//       },
-//     ]
-//   }
-// ]);
 
-// const PublicRoute = ({element}) => {
-//   const isLogin = useSelector((state) => state.auth.accessToken);
-  
-//   return isLogin ? <Navigate to='/' /> : element;
-// }
+const PublicRoute = ({ element }) => {
+  const isLogin = useSelector((state) => state.auth.accessToken);
+
+  return !isLogin ? element : <Navigate to="/mypage" />;
+};
 
 const PrivateRoute = ({element}) => {
   const isLogin = useSelector((state) => state.auth.accessToken);
@@ -70,8 +29,8 @@ const Router = () => {
           <Route index element={<PrivateRoute element={<Home />} />} />
           <Route path="detail/:id" element={<PrivateRoute element={<Detail />} />} />
           <Route path="mypage"  element={<PrivateRoute element={<MyPage />} />} />
-          <Route path="signup" element={<SignUpForm />} />
-          <Route path="login" element={<LoginForm />} />
+          <Route path="signup" element={<PublicRoute element={<SignUpForm />} />} />
+          <Route path="login" element={<PublicRoute element={<LoginForm />} />} />
         </Route>
         </Routes>
     </BrowserRouter>
