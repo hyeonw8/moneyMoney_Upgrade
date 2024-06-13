@@ -1,5 +1,51 @@
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
+
+const MoneyItem = ({ data }) => {
+  // const { id, date, category, cost, description, createdBy, userId} = data;
+  // const navigate = useNavigate();
+
+  // const handleCheckUser = () => {
+  //   if(userId === createdBy) {
+  //     navigate(`/detail/${id}`);
+      
+  //   } else {
+  //     toast.error('본인의 지출내역만 접근 가능합니다!')
+  //   }
+  // }  
+  const userData = useSelector((state) => state.auth.userData);
+  const { id, date, category, cost, description, createdBy } = data;
+  const navigate = useNavigate();
+
+  const handleCheckUser = () => {
+    if(userData.userId === createdBy) {
+      navigate(`/detail/${id}`);
+      
+    } else {
+      toast.error('본인의 지출내역만 접근 가능합니다!')
+    }
+  }       
+
+  return (
+    <StItem
+      onClick={handleCheckUser}
+    >
+      <StText>
+        <p>{date}</p>
+        <h4>{category}</h4>
+        <StDescription>{description} (by {createdBy})</StDescription>
+        
+      </StText>
+      <div>
+        <StCost>{cost.toLocaleString('ko-KR')}원</StCost>
+      </div>
+    </StItem>
+  );
+};
+
+export default MoneyItem;
 
 const StItem = styled.div`
   background-color: #eeeeeee3;
@@ -30,28 +76,3 @@ const StDescription = styled.h4`
   overflow: hidden;
   white-space: nowrap;
 `
-
-const MoneyItem = ({ data }) => {
-  const { id, date, category, cost, description, createdBy} = data;
-  const navigate = useNavigate();
-
-  return (
-    <StItem
-      onClick={() => {
-        navigate(`/detail/${id}`);
-      }}
-    >
-      <StText>
-        <p>{date}</p>
-        <h4>{category}</h4>
-        <StDescription>{description} (by {createdBy})</StDescription>
-        
-      </StText>
-      <div>
-        <StCost>{cost.toLocaleString('ko-KR')}원</StCost>
-      </div>
-    </StItem>
-  );
-};
-
-export default MoneyItem;
