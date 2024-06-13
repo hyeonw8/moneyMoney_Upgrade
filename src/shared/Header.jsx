@@ -1,14 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { login, logout, setUserData } from '../redux/slices/authSlice';
-import { useEffect } from 'react';
-import api from '../api/authAPI';
+import { logout } from '../redux/slices/authSlice';
 import { toast } from 'react-toastify';
 
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const accessToken = useSelector((state) => state.auth.accessToken);
+  //const accessToken = useSelector((state) => state.auth.accessToken);
   const userData = useSelector((state) => state.auth.userData);
   //console.log(isAuthenticated)
   const dispatch = useDispatch();
@@ -18,41 +16,8 @@ const Header = () => {
     dispatch(logout());
     localStorage.removeItem('accessToken');
     toast.success('로그아웃되었습니다!');
-    //console.log(isAuthenticated)
     navigate('/login');
   };
-
-  useEffect(() => {
-    const checkIsAuthenticated = async () => {
-      if (accessToken) {
-        try {
-          const response = await api.get("/user", {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
-          const data = response.data;
-          if (data.success) {
-            dispatch(setUserData({ userId: data.id, nickname: data.nickname, avatar: data.avatar }))
-            dispatch(login(accessToken));
-          } else {
-            dispatch(logout());
-            localStorage.removeItem('accessToken');
-            navigate("/login");
-          }
-        } catch (error) {
-          toast.error("토큰 확인 오류:", error.message);
-          dispatch(logout());
-          localStorage.removeItem('accessToken');
-          navigate('/login');
-        }
-      }
-    };
-
-    checkIsAuthenticated();
-    //console.log(isAuthenticated);
-  }, []);
-
 
 
 return (
