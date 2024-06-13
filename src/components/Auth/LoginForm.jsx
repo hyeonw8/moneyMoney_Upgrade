@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { login, setUserData } from '../../redux/slices/authSlice';
-import { loginAPI } from '../../api/auth';
+import { loginAPI } from '../../api/authAPI';
 import { toast } from 'react-toastify';
 
 const LoginForm = () => {

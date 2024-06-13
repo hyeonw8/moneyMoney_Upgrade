@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-//import api from '../../api/authAPI';
-import { registerAPI } from '../../api/auth';
+import { registerAPI } from '../../api/authAPI';
 import { toast } from 'react-toastify';
 
 const SignUpForm = () => {
