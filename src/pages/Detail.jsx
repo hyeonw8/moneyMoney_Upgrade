@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import { deleteItemAPI, editItemAPI, getItemAPI } from '../api/dataAPI';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import { StLoadingMessage } from '../components/List/MoneyList';
 
 const Detail = () => {
   const queryClient = useQueryClient();
@@ -46,7 +47,7 @@ const Detail = () => {
   }, [targetData]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <StLoadingMessage>Loading...📎</StLoadingMessage>;
   }
 
   if (isError) {

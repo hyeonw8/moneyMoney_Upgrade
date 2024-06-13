@@ -17,7 +17,7 @@ const MoneyList = () => {
   // console.log('isError >>> ',isError);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <StLoadingMessage>Loading...📎</StLoadingMessage>;
   }
 
   if (isError) {
@@ -75,4 +75,12 @@ const StNotMoneyList = styled.div`
   text-align: center;
   line-height: 30px;
   font-weight: 500;
+`;
+
+export const StLoadingMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 20px;
 `;
