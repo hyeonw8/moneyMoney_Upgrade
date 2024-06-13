@@ -25,7 +25,7 @@ const datasSlice = createSlice({
       const idx = state.data.findIndex(item => item.id === id);
 
       if (idx !== -1) {
-        state.data.splice(idx, 1); // mutabble way
+        state.data.splice(idx, 1); 
       }
     },
     updateData: (state, action) => {
@@ -33,7 +33,7 @@ const datasSlice = createSlice({
       const idx = state.data.findIndex(item => item.id === id);
 
       if( idx !== -1 ) {
-        state.data[idx] = updatedItem; // mutabble way
+        state.data[idx] = updatedItem; 
       }
     }
   }
