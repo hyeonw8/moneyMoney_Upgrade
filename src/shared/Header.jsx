@@ -30,7 +30,7 @@ return (
           <Link to='/mypage'>
             { userData.avatar !== null
               ?   <StImg src={userData.avatar} alt="MyPage" />
-              :   <StImg src='/Users/hyeongyeong/Documents/sparta/MyProject_3/moneyMoney_develop/src/assets/default-profile.jpg' alt="MyPage" />
+              :   <StImg src='../../public/default-profile.jpg' alt="MyPage" />
             }  
           </Link>
           <StUserName>안녕하세요, {userData.nickname}님</StUserName>
