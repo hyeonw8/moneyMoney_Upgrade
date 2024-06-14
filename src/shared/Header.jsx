@@ -6,9 +6,8 @@ import { toast } from 'react-toastify';
 
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  //const accessToken = useSelector((state) => state.auth.accessToken);
   const userData = useSelector((state) => state.auth.userData);
-  //console.log(isAuthenticated)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -55,9 +54,6 @@ const StHeaderDiv = styled.div`
   height: 50px;
   padding: 10px;
   margin: 0 auto;
-  /* width: 100vw;
-  max-width: 1200px;
-  min-width: 780px; */
 `;
 const StHeaderTitle = styled.h2`
   font-size: 20px;
@@ -73,7 +69,6 @@ const StBtnBox = styled.div`
   margin-right: 20px;
 `
 
-// 한개로 합쳐보자
 const StLogin = styled.button`
   border-radius: 20px;
   width: 100px;
@@ -84,6 +79,7 @@ const StLogin = styled.button`
   border: none;
   cursor: pointer;
 `;
+
 const StSignUp = styled.button`
   border-radius: 20px;
   width: 100px;

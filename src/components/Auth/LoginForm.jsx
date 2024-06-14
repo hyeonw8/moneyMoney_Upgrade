@@ -8,9 +8,6 @@ import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  //const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  //console.log(isAuthenticated)
-  //const userData = useSelector((state) => state.auth.userData);
   const dispatch = useDispatch();
 
   const [ id, setId ] = useState('');
@@ -31,9 +28,8 @@ const LoginForm = () => {
         password,
     })
     const data = response.data;
-    //console.log(data);
+
     if(data.success) {
-      //alert('로그인되었습니다!');
       toast.success('로그인되었습니다');
       localStorage.setItem('accessToken', data.accessToken);
       dispatch(login(data.accessToken));
@@ -41,7 +37,6 @@ const LoginForm = () => {
       navigate('/');
     } else {
       toast.error('로그인에 실패했습니다. 다시 시도해 주세요.');
-      //alert('로그인에 실패했습니다. 다시 시도해 주세요.');
     }
   };
   
@@ -52,7 +47,6 @@ const LoginForm = () => {
         <StLoginForm onSubmit={handleSubmitForm}>
           <StTitle>로그인</StTitle>
           <StInputBox>
-            {/* <label htmlFor="inputID">아이디</label> */}
             <StInput 
               type="text" 
               id="inputID" 
@@ -65,7 +59,6 @@ const LoginForm = () => {
             />
           </StInputBox>
           <StInputBox>
-            {/* <label htmlFor="inputPWD">비밀번호</label> */}
             <StInput 
               type="password" 
               id="inputPWD" 
@@ -128,9 +121,6 @@ const StTitle = styled.p`
   font-weight: bold;
 `;
 
-// const StLabel = styled.label`
-//   font-size: 18px;
-// `;
 const StInput = styled.input`
   width: 400px;
   height: 40px;
@@ -140,6 +130,7 @@ const StInput = styled.input`
   text-align: left;
   padding-left: 10px;
 `;
+
 const StButton = styled.button`
   width: 410px;
   height: 50px;

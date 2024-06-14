@@ -4,17 +4,6 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 const MoneyItem = ({ data }) => {
-  // const { id, date, category, cost, description, createdBy, userId} = data;
-  // const navigate = useNavigate();
-
-  // const handleCheckUser = () => {
-  //   if(userId === createdBy) {
-  //     navigate(`/detail/${id}`);
-      
-  //   } else {
-  //     toast.error('본인의 지출내역만 접근 가능합니다!')
-  //   }
-  // }  
   const userData = useSelector((state) => state.auth.userData);
   const { id, date, category, cost, description, createdBy } = data;
   const navigate = useNavigate();
@@ -59,10 +48,12 @@ const StItem = styled.div`
   font-family: 'Pretendard', sans-serif;
   font-weight: 600;
 `;
+
 const StCost = styled.p`
   font-size: 20px;
   font-weight: bold;
 `;
+
 const StText = styled.div`
   display: flex;
   flex-direction: column;
@@ -75,4 +66,4 @@ const StDescription = styled.h4`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-`
+`;

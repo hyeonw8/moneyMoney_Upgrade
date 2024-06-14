@@ -17,8 +17,6 @@ export const getItemsAPI = async () => {
   }
 }
 
-// Detail page
-// ['expense', params.id]; 0, 1번째
 export const getItemAPI = async ({queryKey}) => {
   try {
     const response = await api.get(`/expenses/${queryKey[1]}`);
@@ -46,7 +44,7 @@ export const deleteItemAPI = async ( id ) => {
 }
 
 export const editItemAPI = async ( updatedData ) => {
-  const { id, ...rest } = updatedData; // id는 바뀌지 않고, 다른 항목들은 바뀐다~
+  const { id, ...rest } = updatedData; 
 
   try {
     await api.patch(`/expenses/${id}`, rest); 

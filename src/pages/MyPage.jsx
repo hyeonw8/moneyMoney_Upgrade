@@ -23,14 +23,13 @@ const MyPage = () => {
 
     const formData = new FormData();
     if (nickname) formData.append("nickname", nickname);
-    if (avatar) formData.append('avatar', avatar); // 변경할 파일 자체
+    if (avatar) formData.append('avatar', avatar);
 
     const response = await updateProfileAPI(formData);
     const data = response.data;
 
     if(data.success) {
       toast.success('프로필 정보가 업데이트 되었습니다!');
-      console.log(data)
       dispatch(setUserData({...userData, nickname: data.nickname || userData.nickname, avatar: data.avatar || userData.avatar }))
     } else {
       toast.error('프로필 정보가 업데이트에 실패했습니다. 다시 시도해 주세요.');
@@ -60,8 +59,6 @@ const MyPage = () => {
     );
   }
 
-  
-
   return (
     <>
       {getAccessToken && (
@@ -90,7 +87,6 @@ const MyPage = () => {
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
               />
-              {/* <StButton onClick={handleChangeName}>닉네임 변경하기</StButton> */}
             </StInputBox>
             <StButton type="submit" $text="login" onClick={handleChangeData}>
               프로필 정보 업데이트하기
@@ -166,6 +162,7 @@ const StInput = styled.input`
   text-align: center;
   background-color: #fff;
 `;
+
 const StButton = styled.button`
   width: 250px;
   height: 50px;

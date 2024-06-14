@@ -18,11 +18,10 @@ const Detail = () => {
   const descriptionRef = useRef(null);
 
   const { data: targetData, isLoading, isError } = useQuery({
-    queryKey: ['expenses', params.id], // 전체 데이터를 가져오는 것과 동일한데 여기에 현재 params.id를 추가
+    queryKey: ['expenses', params.id], 
     queryFn: getItemAPI,
   });
 
-  console.log(targetData)
   const mutationDelete = useMutation({
     mutationFn: deleteItemAPI,
     onSuccess: () => {
@@ -73,12 +72,9 @@ const Detail = () => {
     };
     
     mutationEdit.mutate(updatedItem);
-    console.log(updatedItem);
     toast.success('수정되었습니다.');
     navigate('/');
   };
-
-  
 
   return (
     <div>
@@ -154,12 +150,14 @@ const StDetailWrapper = styled.div`
   margin: 0 auto;
   padding: 10px;
 `;
+
 const StDetailTitle = styled.h1`
   font-size: 20px;
   text-align: center;
   margin-bottom: 20px;
   font-weight: bold;
 `;
+
 const StDetailForm = styled.form`
   background-color: white;
   width: 800px;
@@ -170,25 +168,30 @@ const StDetailForm = styled.form`
   margin: 0 auto;
   border-radius: 20px;
 `;
+
 const StFormDBox = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 10px;
 `;
+
 const StFormDInput = styled.input`
   border: 1px solid gray;
   border-radius: 10px;
   height: 30px;
   padding-left: 10px;
 `;
+
 const StFormDLabel = styled.label`
   font-weight: bold;
 `;
+
 const StButtonDiv = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
 `;
+
 const StBtn = styled.button`
   background-color: ${(props) => {
     switch (props.$text) {

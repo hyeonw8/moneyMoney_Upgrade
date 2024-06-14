@@ -45,7 +45,6 @@ const SignUpForm = () => {
         <StSignUpForm onSubmit={handleSubmitForm}>
           <StTitle>회원가입</StTitle>
           <StInputBox>
-            {/* <StLabel htmlFor="inputID">아이디</StLabel> */}
             <StInput 
               type="text" 
               id="inputID" 
@@ -58,7 +57,6 @@ const SignUpForm = () => {
             />
           </StInputBox>
           <StInputBox>
-            {/* <StLabel htmlFor="inputPWD">비밀번호</StLabel> */}
             <StInput 
               type="password" 
               id="inputPWD" 
@@ -71,7 +69,6 @@ const SignUpForm = () => {
             />
           </StInputBox>
           <StInputBox>
-            {/* <StLabel htmlFor="inputName">닉네임</StLabel> */}
             <StInput 
               type="text" 
               id="inputName" 
@@ -132,10 +129,6 @@ const StTitle = styled.p`
   font-weight: bold;
 `;
 
-// const StLabel = styled.label`
-//   font-size: 18px;
-// `;
-
 const StInput = styled.input`
   width: 400px;
   height: 40px;
@@ -144,7 +137,8 @@ const StInput = styled.input`
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   text-align: left;
   padding-left: 10px;
-`
+`;
+
 const StButton = styled.button`
   width: 410px;
   height: 50px;

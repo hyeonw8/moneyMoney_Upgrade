@@ -5,16 +5,12 @@ import { useQuery } from '@tanstack/react-query';
 import { getItemsAPI } from '../../api/dataAPI';
 
 const MoneyList = () => {
-  //const datas = useSelector((state) => state.datas.data);
   const selectedMonth = useSelector((state) => state.datas.selectedMonth);
 
   const { data: expenses, isLoading, isError } = useQuery({
   queryKey: ['expenses'],
   queryFn: getItemsAPI,
   });
-  // console.log('isLoading >>> ',isLoading );
-  // console.log('expenses >>> ',expenses);
-  // console.log('isError >>> ',isError);
 
   if (isLoading) {
     return <StLoadingMessage>Loading...📎</StLoadingMessage>;
@@ -65,6 +61,7 @@ const StMoneyList = styled.div`
   gap: 15px;
   padding: 15px;
 `;
+
 const StNotMoneyList = styled.div`
   height: 100%;
   background-color: #fff;

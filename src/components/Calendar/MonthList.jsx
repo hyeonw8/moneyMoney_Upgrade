@@ -1,6 +1,19 @@
 import styled from "styled-components"
 import MonthButton from "./MonthButton"
 
+const MonthList = () => {
+  
+  return (
+    <>
+      <StMonthList> 
+        <MonthButton />
+      </StMonthList>
+    </>
+  )
+}
+
+export default MonthList;
+
 const StMonthList = styled.div`
   padding: 20px;
   display: flex;
@@ -13,16 +26,3 @@ const StMonthList = styled.div`
   border-radius: 20px;
   margin: 0 15px 10px 15px;
 `
-
-const MonthList = () => {
-  
-  return (
-    <>
-      <StMonthList> 
-        <MonthButton />
-      </StMonthList>
-    </>
-  )
-}
-
-export default MonthList

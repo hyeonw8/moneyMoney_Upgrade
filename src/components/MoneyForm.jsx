@@ -27,7 +27,7 @@ const MoneyForm = () => {
     e.preventDefault();
 
     if (!date || !category.trim() || !cost.trim() || !description.trim()) {
-      return alert('모든 항목을 입력해 주세요!');
+      return toast.error('모든 항목을 입력해 주세요!');
     }
 
     const nextData = {
@@ -40,7 +40,6 @@ const MoneyForm = () => {
       userId: uuid4(),
     };
 
-    // dispatch(addData(nextData));
     mutation.mutate(nextData);
     setDate('');
     setCategory('');
@@ -103,6 +102,7 @@ const MoneyForm = () => {
 };
 
 export default MoneyForm;
+
 const StForm = styled.form`
   height: 70px;
   display: flex;
