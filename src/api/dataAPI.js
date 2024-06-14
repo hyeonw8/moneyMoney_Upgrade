@@ -1,8 +1,10 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const JSON_SERVER_BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const api = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: JSON_SERVER_BASE_URL,
 });
 
 export const getItemsAPI = async () => {
