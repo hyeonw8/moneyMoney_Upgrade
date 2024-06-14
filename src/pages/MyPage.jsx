@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { logout, setUserData } from '../redux/slices/authSlice';
 import { StImg } from '../shared/Header';
 import { useNavigate } from 'react-router-dom';
+import defaultImg from '../assets/default-profile.jpg'
 
 const MyPage = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -67,7 +68,7 @@ const MyPage = () => {
             <StTitle>🍀 {userData?.nickname}님의 마이 페이지</StTitle>
             { userData?.avatar !== null ?
               <StImg src={userData?.avatar} alt="MyPage" style={{width: '100px', height: '100px'}}/>
-              :  <StImg src='../../public/default-profile.jpg' alt="MyPage" style={{width: '100px', height: '100px'}}/>
+              :  <StImg src={defaultImg} alt="MyPage" style={{width: '100px', height: '100px'}}/>
             }  
             <StInputBox>
               <StLabel htmlFor="inputFile">프로필 이미지 등록하기</StLabel>
