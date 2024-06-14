@@ -28,7 +28,10 @@ return (
       {userData && isAuthenticated ? (
         <> 
           <Link to='/mypage'>
-            <StImg src={userData.avatar} alt="MyPage" />
+            { userData.avatar !== null || undefined  
+              ?   <StImg src={userData.avatar} alt="MyPage" />
+              :   <StImg src='src/assets/default-profile.jpg' alt="MyPage" />
+            }  
           </Link>
           <StUserName>안녕하세요, {userData.nickname}님</StUserName>
           <StLogin onClick={handleLogout} $text='로그아웃'>로그아웃</StLogin>
