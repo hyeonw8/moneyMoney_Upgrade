@@ -74,7 +74,7 @@ const LoginForm = () => {
             로그인하기
           </StButton>
           <StButton type="button" $text="signUp">
-            <Link to="/auth/signup">회원가입하러 가기</Link>
+            <Link to="/signup">회원가입하러 가기</Link>
           </StButton>
         </StLoginForm>
       </StLoginWrapper>

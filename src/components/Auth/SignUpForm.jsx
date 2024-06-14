@@ -82,7 +82,7 @@ const SignUpForm = () => {
           </StInputBox>
           <StButton type='submit' $text='signup'>회원가입하기</StButton>
           <StButton type='button' $text='login'>
-            <Link to='/auth/login'>로그인하러 하기</Link>
+            <Link to='/login'>로그인하러 하기</Link>
           </StButton>
         </StSignUpForm>
       </StSignUpWrapper>
