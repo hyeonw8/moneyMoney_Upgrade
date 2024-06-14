@@ -1,10 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const AUTH_BASE_URL = import.meta.env.VITE_AT_BASE_URL;
-
 export const api = axios.create({
-  baseURL: AUTH_BASE_URL,
+  baseURL: "https://moneyfulpublicpolicy.co.kr",
 });
 
 const accessToken = localStorage.getItem('accessToken');
