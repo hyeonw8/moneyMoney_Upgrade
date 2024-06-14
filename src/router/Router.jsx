@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 const PublicRoute = ({ element }) => {
   const isLogin = useSelector((state) => state.auth.accessToken);
 
-  return !isLogin ? element : <Navigate to="/mypage" />;
+  return !isLogin ? element : <Navigate to="/" />;
 };
 
 const PrivateRoute = ({element}) => {
