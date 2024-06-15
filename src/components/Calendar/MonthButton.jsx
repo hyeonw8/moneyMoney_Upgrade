@@ -1,4 +1,4 @@
-import {  useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setSelectedMonth } from '/src/redux/slices/datasSlice'
@@ -19,8 +19,8 @@ const MonthButton = () => {
   useEffect(() => {
     if (selectedMonth !== null) {
       localStorage.setItem('month', JSON.stringify(selectedMonth));
-
     }
+    
   }, [selectedMonth]);
 
   return (

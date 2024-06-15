@@ -38,7 +38,6 @@ const SignUpForm = () => {
     }
   } 
 
-
   return (
     <>
       <StSignUpWrapper>
