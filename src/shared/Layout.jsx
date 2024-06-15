@@ -15,7 +15,7 @@ const Layout = () => {
       try {
         const response = await getUserInfoAPI();
         const data = response.data;
-
+        
         if (data.success) {
           dispatch(setUserData({ userId: data.id, nickname: data.nickname, avatar: data.avatar }));
         } else {
@@ -25,7 +25,11 @@ const Layout = () => {
         }
       } catch (error) {
         if (error.response && error.response.status === 401) {
-          toast.error('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+          toast.error(<div>
+            토큰이 만료되었습니다. 
+            <br />
+            다시 로그인해주세요!
+          </div>);
         } else {
           toast.info('로그인 이후 이용이 가능합니다!');
         }
