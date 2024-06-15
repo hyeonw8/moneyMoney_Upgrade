@@ -11,7 +11,6 @@ const MoneyItem = ({ data }) => {
   const handleCheckUser = () => {
     if(userData.userId === createdBy) {
       navigate(`/detail/${id}`);
-      
     } else {
       toast.error('본인의 지출내역만 접근 가능합니다!')
     }
@@ -24,8 +23,10 @@ const MoneyItem = ({ data }) => {
       <StText>
         <p>{date}</p>
         <h4>{category}</h4>
-        <StDescription>{description} (by {createdBy})</StDescription>
-        
+        <StDescriptionContainer>
+          <StDescription>{description}</StDescription>
+          <StCreatedBy>(by {createdBy})</StCreatedBy>
+        </StDescriptionContainer>
       </StText>
       <div>
         <StCost>{cost.toLocaleString('ko-KR')}원</StCost>
@@ -65,5 +66,16 @@ const StText = styled.div`
 const StDescription = styled.h4`
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
+  margin-right: 5px;
+`;
+
+const StDescriptionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const StCreatedBy = styled.div`
   white-space: nowrap;
 `;
