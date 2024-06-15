@@ -4,33 +4,37 @@ import Detail from '../pages/Detail';
 import LoginForm from '../components/Auth/LoginForm';
 import SignUpForm from '../components/Auth/SignUpForm';
 import MyPage from '../pages/MyPage';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
-const PublicRoute = ({ element }) => {
+const PublicRoute = () => {
   const isLogin = useSelector((state) => state.auth.accessToken);
 
-  return !isLogin ? element : <Navigate to="/" />;
+  return !isLogin ?  <Outlet /> : <Navigate to="/" />;
 };
 
-const PrivateRoute = ({element}) => {
+const PrivateRoute = () => {
   const isLogin = useSelector((state) => state.auth.accessToken);
   
-  return isLogin ?  element : <Navigate to='/login' />;
+  return isLogin ?  <Outlet /> : <Navigate to='/login' />;
 }
 
 const Router = () => {
   return (
     <BrowserRouter>
         <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<PrivateRoute element={<Home />} />} />
-          <Route path="detail/:id" element={<PrivateRoute element={<Detail />} />} />
-          <Route path="mypage"  element={<PrivateRoute element={<MyPage />} />} />
-          <Route path="signup" element={<PublicRoute element={<SignUpForm />} />} />
-          <Route path="login" element={<PublicRoute element={<LoginForm />} />} />
-        </Route>
+          <Route path="/" element={<Layout />}>
+            <Route element={<PrivateRoute />}>
+              <Route index element={<Home />}/>
+              <Route path="detail/:id" element={<Detail />} />
+              <Route path="mypage"  element={<MyPage />} />
+            </Route>
+            <Route element={<PublicRoute />}>
+              <Route path="signup" element={<SignUpForm />} />
+              <Route path="login" element={<LoginForm />} />
+            </Route>
+          </Route>
         </Routes>
     </BrowserRouter>
   );
