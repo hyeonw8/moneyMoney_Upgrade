@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addItemAPI } from '../api/dataAPI';
