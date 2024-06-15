@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import MoneyItem from './MoneyItem';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
-import { getItemsAPI } from '../../api/dataAPI';
+import { QUERY_KEY, getItemsAPI } from '../../api/dataAPI';
 
 const MoneyList = () => {
   const selectedMonth = useSelector((state) => state.datas.selectedMonth);
 
   const { data: expenses, isLoading, isError } = useQuery({
-  queryKey: ['expenses'],
-  queryFn: getItemsAPI,
+    queryKey: [QUERY_KEY],
+    queryFn: getItemsAPI,
   });
 
   if (isLoading) {
@@ -17,7 +17,7 @@ const MoneyList = () => {
   }
 
   if (isError) {
-    return <div>Error occurred while fetching data.</div>;
+    return <div>데이터를 불러오는 데 오류가 발생했습니다.</div>;
   }
 
   const filteredData = expenses?.filter((data) => {

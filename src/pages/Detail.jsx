@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { deleteItemAPI, editItemAPI, getItemAPI } from '../api/dataAPI';
+import { QUERY_KEY, deleteItemAPI, editItemAPI, getItemAPI } from '../api/dataAPI';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { StLoadingMessage } from '../components/List/MoneyList';
@@ -18,21 +18,21 @@ const Detail = () => {
   const descriptionRef = useRef(null);
 
   const { data: targetData, isLoading, isError } = useQuery({
-    queryKey: ['expenses', params.id], 
+    queryKey: [QUERY_KEY, params.id], 
     queryFn: getItemAPI,
   });
 
   const mutationDelete = useMutation({
     mutationFn: deleteItemAPI,
     onSuccess: () => {
-      queryClient.invalidateQueries(['expenses']); 
+      queryClient.invalidateQueries([QUERY_KEY]); 
     }
   });
 
   const mutationEdit = useMutation({
     mutationFn: editItemAPI,
     onSuccess: () => {
-      queryClient.invalidateQueries(['expenses']);
+      queryClient.invalidateQueries([QUERY_KEY]);
     }
   });
 
@@ -50,7 +50,7 @@ const Detail = () => {
   }
 
   if (isError) {
-    return <div>Error occurred while fetching data.</div>;
+    return <div>데이터를 불러오는 데 오류가 발생했습니다.</div>;
   }
 
   const handleDeleteData = (id) => {

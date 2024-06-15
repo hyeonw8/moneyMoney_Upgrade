@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const JSON_SERVER_BASE_URL = import.meta.env.VITE_DATA_BASE_URL;
+export const QUERY_KEY = 'expenses';
 
 export const api = axios.create({
   baseURL: JSON_SERVER_BASE_URL,
