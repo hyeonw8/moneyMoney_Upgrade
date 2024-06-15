@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addItemAPI } from '../api/dataAPI';
@@ -10,10 +10,15 @@ const MoneyForm = () => {
   const queryClient = useQueryClient();
   const userData = useSelector((state)=> state.auth.userData);
 
-  const [date, setDate] = useState('');
-  const [category, setCategory] = useState('');
-  const [cost, setCost] = useState('');
-  const [description, setDescription] = useState('');
+  // const [date, setDate] = useState('');
+  // const [category, setCategory] = useState('');
+  // const [cost, setCost] = useState('');
+  // const [description, setDescription] = useState('');
+
+  const dateRef = useRef();
+  const categoryRef = useRef();
+  const costRef = useRef();
+  const desceRef = useRef();
 
   const mutation = useMutation({
     mutationFn: addItemAPI,
@@ -25,6 +30,11 @@ const MoneyForm = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+
+    const date = dateRef.current.value;
+    const category = categoryRef.current.value;
+    const cost = costRef.current.value;
+    const description = desceRef.current.value;
 
     if (!date || !category.trim() || !cost.trim() || !description.trim()) {
       return toast.error('모든 항목을 입력해 주세요!');
@@ -41,10 +51,11 @@ const MoneyForm = () => {
     };
 
     mutation.mutate(nextData);
-    setDate('');
-    setCategory('');
-    setCost('');
-    setDescription('');
+
+    dateRef.current.value = '';
+    categoryRef.current.value = '';
+    costRef.current.value = '';
+    desceRef.current.value = '';
   };
 
   return (
@@ -53,10 +64,7 @@ const MoneyForm = () => {
         <StFormLabel htmlFor="date">날짜</StFormLabel>
         <StFormInput
           type="date"
-          value={date}
-          onChange={(e) => {
-            setDate(e.target.value);
-          }}
+          ref={dateRef}
           id="date"
         />
       </StFormBox>
@@ -65,10 +73,7 @@ const MoneyForm = () => {
         <StFormInput
           type="text"
           placeholder="지출 항목"
-          value={category}
-          onChange={(e) => {
-            setCategory(e.target.value);
-          }}
+          ref={categoryRef}
           id="category"
         />
       </StFormBox>
@@ -77,10 +82,7 @@ const MoneyForm = () => {
         <StFormInput
           type="number"
           placeholder="지출 금액"
-          value={cost}
-          onChange={(e) => {
-            setCost(e.target.value);
-          }}
+          ref={costRef}
           id="cost"
         />
       </StFormBox>
@@ -89,10 +91,7 @@ const MoneyForm = () => {
         <StFormInput
           type="text"
           placeholder="지출 내용"
-          value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
+          ref={desceRef}
           id="desc"
         />
       </StFormBox>
