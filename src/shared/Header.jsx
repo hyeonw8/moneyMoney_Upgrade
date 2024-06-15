@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { logout } from '../redux/slices/authSlice';
 import { toast } from 'react-toastify';
+import defaultImg from '../assets/default-profile.jpg'
 
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -18,7 +19,6 @@ const Header = () => {
     navigate('/login');
   };
 
-
 return (
   <StHeaderDiv>
     <Link to='/'>
@@ -30,7 +30,7 @@ return (
           <Link to='/mypage'>
             { userData.avatar !== null
               ?   <StImg src={userData.avatar} alt="MyPage" />
-              :   <StImg src='/Users/hyeongyeong/Documents/sparta/MyProject_3/moneyMoney_develop/src/assets/default-profile.jpg' alt="MyPage" />
+              :   <StImg src={defaultImg} alt="MyPage" />
             }  
           </Link>
           <StUserName>안녕하세요, {userData.nickname}님</StUserName>
