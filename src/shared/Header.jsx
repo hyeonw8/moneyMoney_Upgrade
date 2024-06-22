@@ -55,7 +55,7 @@ const StHeaderDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 50px;
-  padding: 10px;
+  padding: 30px 10px 10px 10px;
   margin: 0 auto;
 `;
 const StHeaderTitle = styled.h2`

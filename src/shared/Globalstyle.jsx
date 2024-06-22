@@ -12,7 +12,7 @@ const Globalstyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #a6c6cefb;
+    background-color: #fffffffa;
     min-height: 100vh;
     max-width: 1200px;
     min-width: 780px;
