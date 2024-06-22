@@ -112,7 +112,7 @@ const StForm = styled.form`
   background-color: #fff;
   border-radius: 20px;
   padding: 10px;
-  margin: 10px 15px 30px 15px;
+  margin: 25px 15px 30px 15px;
 `;
 
 const StFormBox = styled.div`
